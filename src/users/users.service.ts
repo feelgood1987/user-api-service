@@ -29,7 +29,7 @@ export class UsersService {
       this.logger.error('Failed to fetch users.', error);
 
       // TODO: Here could we send the error to Sentry
-      return [];
+      throw new Error('Failed to fetch users.');
     }
   }
 }

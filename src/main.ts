@@ -11,7 +11,6 @@ async function bootstrap() {
     .setTitle('Users API')
     .setDescription('This is a simple user API service built with NestJS.')
     .setVersion('1.0')
-    .addTag('users')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
