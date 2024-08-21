@@ -1,5 +1,6 @@
-import { Controller, Get, Header } from '@nestjs/common';
+import { Controller, Get, Header, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { User } from './interfaces';
 
 @Controller({
   path: 'users',
@@ -10,7 +11,13 @@ export class UsersController {
 
   @Get()
   @Header('Content-Type', 'application/json')
-  public async getUsersAsync(): Promise<string[]> {
-    return await this.userService.fetchUsersAsync();
+  public async getUsersAsync(): Promise<User[]> {
+    return await this.userService.getUsersAsync();
+  }
+
+  @Get('/:id')
+  @Header('Content-Type', 'application/json')
+  public async getUsersByIdAsync(@Param('id') id: string): Promise<User> {
+    return await this.userService.getUserByIdAsync(parseInt(id));
   }
 }

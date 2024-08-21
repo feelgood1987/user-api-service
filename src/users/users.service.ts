@@ -1,16 +1,26 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { User } from './interfaces';
 
 @Injectable()
 export class UsersService {
   private logger = new Logger(UsersService.name);
   private readonly USERS_FILE_PATH = join(
     __dirname.replace('dist', 'src').replace('users', ''),
-    '/assets/users.jsons',
+    '/assets/users.json',
   );
 
-  public async fetchUsersAsync(): Promise<string[]> {
+  public async getUsersAsync(): Promise<User[]> {
+    return await this.fetchUsersAsync();
+  }
+
+  public async getUserByIdAsync(id: number): Promise<User> {
+    const users = await this.fetchUsersAsync();
+    return users.find((user) => user.id === id);
+  }
+
+  private async fetchUsersAsync(): Promise<User[]> {
     try {
       this.logger.verbose('Fetching users...');
       const data = await readFileSync(this.USERS_FILE_PATH, 'utf8');
@@ -18,7 +28,7 @@ export class UsersService {
     } catch (error) {
       this.logger.error('Failed to fetch users.', error);
 
-      // TODO: Send error to Sentry
+      // TODO: Here could we send the error to Sentry
       return [];
     }
   }

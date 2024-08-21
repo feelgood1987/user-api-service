@@ -18,12 +18,20 @@ $ pnpm run start:dev
 ```
 
 ## API Endpoints
+Here are the available endpoints for this service. also you could find the swagger documentation at `http://localhost:3000/swagger` after running the service.
 
 ### Get all users
 This endpoint returns a list of all users, it accepts no parameters.
 ```bash
 GET /v1/users
 ```
+
+### Get user by id
+This endpoint returns a single user by id, it accepts a single parameter `id` which is the user id.
+```bash
+GET /v1/users/:id
+```
+
 
 ## Test
 
